@@ -14,7 +14,9 @@ const morganOption = (NODE_ENV === 'production')
   : 'common';
 
 app.use(morgan(morganOption))
-app.use(express.json())
+app.use(express.json({
+  strict: false,
+}))
 app.use(helmet())
 app.use(cors())
 
@@ -49,6 +51,19 @@ delete newText.numOfSections;
 newText.title = title;
 data.push(newText);
 res.send('added new text');
+})
+
+app.delete('/listText', (req, res) => {
+  let index = data.findIndex(text => text.title === req.body);
+
+  if (index === -1) {
+    return res.status(404).send('text not found');
+  }
+
+  data.splice(index, 1);
+
+  res.send('Deleted');
+
 })
 
 app.use(function errorHandler(error, req, res, next) {
