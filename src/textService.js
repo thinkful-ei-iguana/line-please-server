@@ -3,7 +3,7 @@ const textService = {
 
     getTitles(knex) {
         return knex
-                .select('title')
+                .select('title', 'id')
                 .from('alltext')
     },
 

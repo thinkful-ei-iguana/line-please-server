@@ -13,7 +13,7 @@ const app = express()
 
 const knexInstance = knex({
   client: 'pg',
-  connection: 'postgresql://anugrahlambogo@localhost/Line-Please',
+  connection: DB_URL,
 })
 
 
@@ -67,16 +67,11 @@ textService.postText(knexInstance, textObj)
   .then(result => console.log(result))
 })
 
+
 app.delete('/listText', (req, res) => {
-  let index = data.findIndex(text => text.title === req.body);
 
-  if (index === -1) {
-    return res.status(404).send('text not found');
-  }
-
-  data.splice(index, 1);
-
-  res.send('Deleted');
+  textService.deleteText(knexInstance, req.body)
+  .then(res.send('Deleted'));
 
 })
 
