@@ -1,6 +1,12 @@
 /* eslint-disable indent */
 const textService = {
 
+    getTitles(knex) {
+        return knex
+                .select('title')
+                .from('alltext')
+    },
+
     getText(knex, title) {
         return knex
                 .from('alltext')

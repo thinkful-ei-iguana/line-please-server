@@ -47,8 +47,8 @@ app.get('/teleprompt', (req, res) => {
 });
 
 app.get ('/textTitles', (req, res) => {
-  let titles = data.map(text => text.title);
-  res.json(titles);
+  textService.getTitles(knexInstance)
+    .then(titles => res.json(titles));
 })
 
 
