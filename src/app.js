@@ -35,7 +35,8 @@ app.get('/teleprompt', (req, res) => {
 
   if (query.text) {
   textService.getText(knexInstance, query.text)
-    .then(result => res.json(result))
+    .then(result => JSON.parse(result.content))
+    .then(resu => res.json(resu))
   }
 
   else {
@@ -57,18 +58,13 @@ let newText = req.body;
 delete newText.title;
 delete newText.numOfSections;
 
-let newTextString = JSON.stringify(newText);
-
 let textObj = {
   title: title,
-  content: newTextString
+  content: newText
 }
 
 textService.postText(knexInstance, textObj)
   .then(result => console.log(result))
-//newText.title = title;
-//data.push(newText);
-//res.send('added new text');
 })
 
 app.delete('/listText', (req, res) => {

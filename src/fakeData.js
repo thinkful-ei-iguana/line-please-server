@@ -70,5 +70,5 @@ module.exports = [
         'sect4 line2 lsj;asldkf',
         'sect4 line3 lskjdf;adjsf;djs'
     ],
-    title: 'dummyStore'}
+    title: 'testing'}
 ];
