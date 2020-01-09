@@ -1,13 +1,21 @@
-
 require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const fakeData = require('./fakeData.js')
-const { NODE_ENV } = require('./config')
+const { NODE_ENV, DB_URL } = require('./config')
+const knex = require('knex')
+const textService = require('./textService')
+
 
 const app = express()
+
+const knexInstance = knex({
+  client: 'pg',
+  connection: 'postgresql://anugrahlambogo@localhost/Line-Please',
+})
+
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -26,8 +34,8 @@ app.get('/teleprompt', (req, res) => {
   const query = req.query;
 
   if (query.text) {
-  let results = data.find(text => text.title === query.text );
-  res.json(results);
+  textService.getText(knexInstance, query.text)
+    .then(result => res.json(result))
   }
 
   else {
@@ -48,9 +56,19 @@ const {title} = req.body;
 let newText = req.body;
 delete newText.title;
 delete newText.numOfSections;
-newText.title = title;
-data.push(newText);
-res.send('added new text');
+
+let newTextString = JSON.stringify(newText);
+
+let textObj = {
+  title: title,
+  content: newTextString
+}
+
+textService.postText(knexInstance, textObj)
+  .then(result => console.log(result))
+//newText.title = title;
+//data.push(newText);
+//res.send('added new text');
 })
 
 app.delete('/listText', (req, res) => {
