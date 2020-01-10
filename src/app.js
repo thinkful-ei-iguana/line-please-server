@@ -3,7 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
-const { NODE_ENV, DB_URL } = require('./config')
+const { NODE_ENV, DATABASE_URL } = require('./config')
 const knex = require('knex')
 const textService = require('./textService')
 
@@ -12,7 +12,7 @@ const app = express()
 
 const knexInstance = knex({
   client: 'pg',
-  connection: DB_URL,
+  connection: DATABASE_URL,
 })
 
 
