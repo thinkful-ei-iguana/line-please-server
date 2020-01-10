@@ -3,7 +3,6 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
-const fakeData = require('./fakeData.js')
 const { NODE_ENV, DB_URL } = require('./config')
 const knex = require('knex')
 const textService = require('./textService')
@@ -28,22 +27,14 @@ app.use(express.json({
 app.use(helmet())
 app.use(cors())
 
-let data = fakeData;
 
 app.get('/teleprompt', (req, res) => {
   const query = req.query;
 
-  if (query.text) {
   textService.getText(knexInstance, query.text)
     .then(result => JSON.parse(result.content))
     .then(resu => res.json(resu))
-  }
-
-  else {
-    let results = data.find(text => text.title === 'dummyStore');
-    res.json(results);
-  }
-
+  
 });
 
 app.get ('/textTitles', (req, res) => {
