@@ -44,37 +44,37 @@ app.get ('/textTitles', (req, res) => {
 
 
 app.post('/upload', (req, res) => {
-const {title} = req.body;
-let newText = req.body;
-delete newText.title;
-delete newText.numOfSections;
+  const {title} = req.body;
+  let newText = req.body;
+  delete newText.title;
+  delete newText.numOfSections;
 
-let textObj = {
-  title: title,
-  content: newText
-}
+  let textObj = {
+    title: title,
+    content: newText
+  }
 
-textService.postText(knexInstance, textObj)
-  .then(result => console.log(result))
+  textService.postText(knexInstance, textObj)
+    .then(result => console.log(result))
 })
 
 
 app.delete('/listText', (req, res) => {
 
   textService.deleteText(knexInstance, req.body)
-  .then(res.send('Deleted'));
+    .then(res.send('Deleted'));
 
 })
 
 app.use(function errorHandler(error, req, res, next) {
-    let response
-    if (NODE_ENV === 'production') {
+  let response
+  if (NODE_ENV === 'production') {
     response = { error: { message: 'server error' } }
-    } else {
-     console.error(error)
+  } else {
+    console.error(error)
     response = { message: error.message, error }
-    }
-    res.status(500).json(response)
-    })
+  }
+  res.status(500).json(response)
+})
 
 module.exports = app
