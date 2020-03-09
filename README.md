@@ -6,7 +6,9 @@ Created by Anugrah Lambogo
 ## Live Link
 
 [Live API](https://shielded-temple-40772.herokuapp.com)
+
 [Client Repo](https://github.com/thinkful-ei-iguana/line-please-app)
+
 [Live Site](https://line-please-app.now.sh/)
 
 ## About this API
