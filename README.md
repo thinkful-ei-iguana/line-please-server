@@ -1,18 +1,43 @@
 
-# Express Boilerplate!
+# Line Please Server
 
-This is a boilerplate project used for starting new projects!
+Created by Anugrah Lambogo
 
-## Set up
+## Live Link
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+[Live API](https://shielded-temple-40772.herokuapp.com)
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+[Client Repo](https://github.com/thinkful-ei-iguana/line-please-app)
+
+[Live Site](https://line-please-app.now.sh/)
+
+## About this API
+
+This is the API for the Line Please App. Line please is an application to help users commit text to memory using a teleprompt-like tool.
+
+This API pulls from a SQL database with one table of uploaded texts. Users may upload texts via the client, view the text through the client's teleprompt tool, or delete texts via the client's request.
+
+## Routes
+
+/teleprompt, /textTitles, /upload, /listText
+
+## Local dev setup
+
+If using user `dunder-mifflin`:
+
+```bash
+mv example.env .env
+createdb -U dunder-mifflin line-please
+createdb -U dunder-mifflin line-please-test
+```
+
+If your `dunder-mifflin` user has a password be sure to set it in `.env` for all appropriate fields. Or if using a different user, update appropriately.
+
+```bash
+npm install
+npm run migrate
+env MIGRATION_DB_NAME=line-please-test npm run migrate
+```
 
 ## Scripts
 
