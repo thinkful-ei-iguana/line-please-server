@@ -1,4 +1,4 @@
-function testData () {
+function testData() {
   return {
     section1: [
       'Select which text you want to practice!'],

@@ -34,17 +34,17 @@ app.get('/teleprompt', (req, res) => {
   textService.getText(knexInstance, query.text)
     .then(result => JSON.parse(result.content))
     .then(resu => res.json(resu))
-  
+
 });
 
-app.get ('/textTitles', (req, res) => {
+app.get('/textTitles', (req, res) => {
   textService.getTitles(knexInstance)
     .then(titles => res.json(titles));
 })
 
 
 app.post('/upload', (req, res) => {
-  const {title} = req.body;
+  const { title } = req.body;
   let newText = req.body;
   delete newText.title;
   delete newText.numOfSections;
