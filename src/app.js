@@ -5,7 +5,10 @@ const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV, DATABASE_URL } = require('./config')
 const knex = require('knex')
-const textService = require('./textService')
+const teleprompt = require('./routes/teleprompt-router')
+const listText = require('./routes/listText-router')
+const textTitles = require('./routes/textTitles-router')
+const upload = require('./routes/upload-router')
 
 
 const app = express()
@@ -28,43 +31,11 @@ app.use(helmet())
 app.use(cors())
 
 
-app.get('/teleprompt', (req, res) => {
-  const query = req.query;
+app.use('/teleprompt', teleprompt)
+app.use('/listText', listText)
+app.use('/textTitles', textTitles)
+app.use('/upload', upload)
 
-  textService.getText(knexInstance, query.text)
-    .then(result => JSON.parse(result.content))
-    .then(resu => res.json(resu))
-
-});
-
-app.get('/textTitles', (req, res) => {
-  textService.getTitles(knexInstance)
-    .then(titles => res.json(titles));
-})
-
-
-app.post('/upload', (req, res) => {
-  const { title } = req.body;
-  let newText = req.body;
-  delete newText.title;
-  delete newText.numOfSections;
-
-  let textObj = {
-    title: title,
-    content: newText
-  }
-
-  textService.postText(knexInstance, textObj)
-    .then(result => console.log(result))
-})
-
-
-app.delete('/listText', (req, res) => {
-
-  textService.deleteText(knexInstance, req.body)
-    .then(res.send('Deleted'));
-
-})
 
 app.use(function errorHandler(error, req, res, next) {
   let response
