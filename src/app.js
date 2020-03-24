@@ -36,6 +36,10 @@ app.use('/listText', listText)
 app.use('/textTitles', textTitles)
 app.use('/upload', upload)
 
+app.get("/", (req, res, next) => {
+  res.send("Hello, from the App!");
+});
+
 
 app.use(function errorHandler(error, req, res, next) {
   let response

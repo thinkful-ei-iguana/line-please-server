@@ -17,6 +17,7 @@ teleprompt.get('/', (req, res) => {
     .then(result => JSON.parse(result.content))
     .then(resu => res.json(resu))
   
+  res.send(req.query.text);
 });
 
 module.exports = teleprompt;

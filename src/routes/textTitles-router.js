@@ -13,6 +13,8 @@ const knexInstance = knex({
 textTitles.get('/', (req, res) => {
   textService.getTitles(knexInstance)
     .then(titles => res.json(titles));
+
+  res.send('success!');
 })
 
 module.exports = textTitles; 

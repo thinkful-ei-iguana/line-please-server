@@ -4,33 +4,21 @@ const helpers = require('./test-helpers');
 
 describe('app', () => {
   let db;
-
-  const testData = helpers.testData();
-  const expData = {
-    section1: [
-      'Select which text you want to practice!'],
-    title: 'Title'
-  };
-
-  before('set up connection', () => {
+  before("set up connection", () => {
     db = knex({
-      client: 'pg',
-      connection: process.env.TEST_DATABASE_URL
+      client: "pg",
+      connection: process.env.DATABASE_URL
     });
-    app.set('db', db);
-    helpers.seedText(db, testData);
+    app.set("db", db);
   });
 
-
-  after('remove connection', () => {
+  after("remove connection", () => {
     return db.destroy();
   });
-  console.log("got here");
 
-  it('GET / responds with 200 and retrieves text', () => {
+  it("GET / responds with 200 containing Hello, boilerplate!", () => {
     return supertest(app)
-      .get('/listText')
-      .expect(200)
-      .expect(expData);
+      .get("/")
+      .expect(200, "Hello, from the App!");
   });
 });

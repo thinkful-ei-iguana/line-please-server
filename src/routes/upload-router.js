@@ -22,6 +22,8 @@ upload.post('/', (req, res) => {
   
   textService.postText(knexInstance, textObj)
     .then(result => console.log(result))
+
+  res.send('posted!');
 })
 
 module.exports = upload;
