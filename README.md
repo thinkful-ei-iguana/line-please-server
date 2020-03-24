@@ -55,7 +55,7 @@ When your new project is ready for deployment, add a new Heroku application with
 
 | **HTTP Verb** | **Path**                           | **Used for**         |
 | --------- |:--------------------------------------:| --------------------:|
-| GET       | /teleprompt/?text={text title} | retrieving the content of a single text|
+| GET       | /teleprompt/?text={text-title} | retrieving the content of a single text|
 | GET      | /textTitles | retrieving a list of all the text titles |
 | POST     | /upload | uploading new texts (include text object in body)|
 | DELETE    | /listText | delete ingredient (include text id in body)|
